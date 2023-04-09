@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class SC_SceneManager : MonoBehaviour
@@ -13,5 +14,6 @@ public class SC_SceneManager : MonoBehaviour
     public void onQuit()
     {
         Application.Quit();
+        Debug.Log("Quit");
     }
 }
