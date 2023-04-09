@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -78,8 +77,11 @@ public class SC_Game : MonoBehaviour
 
     void Start()
     {
+        //RESET LINE//
+        //PlayerPrefs.DeleteAll();
+        
         //CLICKER
-        //currentScore = 0;
+        currentScore = 0;
         hitPower = 1;
         scoreIncreasePerSecond = 1;
         x = 0f;
@@ -91,10 +93,7 @@ public class SC_Game : MonoBehaviour
         amount1Profit = 1;
         amount2 = 0;
         amount2Profit = 5;
-        
-        //RESET LINE
-        PlayerPrefs.DeleteAll();
-        
+
         //LOAD
         currentScore = PlayerPrefs.GetInt("currentScore", 0);
         hitPower = PlayerPrefs.GetInt("hitPower", 1);
