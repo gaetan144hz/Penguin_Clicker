@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -68,6 +70,11 @@ public class SC_Game : MonoBehaviour
     public TextMeshProUGUI tx1, tx2, tx3, tx4;
     public int changeCost = 50;
     public int currentButton;
+    
+    //HIT
+    [Header("HIT FLY")]
+    public GameObject plusObject;
+    public TextMeshProUGUI plusText;
 
     void Start()
     {
@@ -216,6 +223,11 @@ public class SC_Game : MonoBehaviour
         {
             clickerButton.sprite = sp4;
         }
+        
+        //RANDOM EVENT
+        
+        //HIT
+        plusText.text = "+ " + hitPower;
     }
 
     //HIT
@@ -225,6 +237,17 @@ public class SC_Game : MonoBehaviour
         
         //EXP
         exp++;
+        
+        plusObject.SetActive(false);
+        //MOUSE POSITON
+        Vector3 mouse_position = Input.mousePosition;
+        float mousePosX = mouse_position.x;
+        float mousePosY = mouse_position.y;
+        plusObject.transform.position = new Vector3(mousePosX + Random.Range(1,10) , mousePosY + Random.Range(1,10), 0);
+        plusObject.SetActive(true);
+        
+        StopAllCoroutines();
+        StartCoroutine(Fly());
     }
 
     #region SHOP
@@ -337,6 +360,22 @@ public class SC_Game : MonoBehaviour
     public void WindowsChangerOff()
     {
         windowsChanger.SetActive(false);
+    }
+
+    #endregion
+
+    #region HIT FLY
+
+    IEnumerator Fly()
+    {
+        for (int i = 0; i <= 19; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            plusObject.transform.position =
+                new Vector3(plusObject.transform.position.x, plusObject.transform.position.y + Random.Range(1,3), 0);
+        }
+        
+        plusObject.SetActive(false);
     }
 
     #endregion
